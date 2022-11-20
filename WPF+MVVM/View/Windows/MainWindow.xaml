@@ -4,10 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_MVVM"
+        xmlns:vm="clr-namespace:WPF_MVVM.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title}" 
+        Height="450" 
+        Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-
+        <TextBox Margin="0, 0, 500, 300" 
+                 Text ="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+                 Height="20" 
+                 Width="220"
+                 TextWrapping="WrapWithOverflow"/>
     </Grid>
 </Window>
  
