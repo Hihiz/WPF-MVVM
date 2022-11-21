@@ -1,4 +1,5 @@
-﻿using WPF_MVVM.ViewModels.Base;
+﻿using System;
+using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
@@ -20,6 +21,22 @@ namespace WPF_MVVM.ViewModels
             //    Set(ref _Title, value);
             //}
             set => Set(ref _Title, value);
+        }
+        #endregion
+
+        #region Status : string - Статус программы
+        /// <summary>
+        ///  Статус программы
+        /// </summary>
+        private string _Status = "Готово !";
+
+        /// <summary>
+        /// Статус программы
+        /// </summary>
+        public string Status
+        {
+            get => _Status;
+            set => Set(ref _Status, value);
         }
         #endregion
     }
