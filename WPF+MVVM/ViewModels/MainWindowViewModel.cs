@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Windows;
+using System.Windows.Input;
+using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
@@ -39,5 +41,31 @@ namespace WPF_MVVM.ViewModels
             set => Set(ref _Status, value);
         }
         #endregion
+
+        #region Команды
+
+        #region CloseApplicationCommand
+
+        public ICommand CloseApplicationCommand { get; }
+
+        private bool CanCloseApplicationExecute(object p) => true;
+
+        private void OnCloseApplicationCommandExecuted(object p)
+        {
+            Application.Current.Shutdown();
+        }
+
+        #endregion
+
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            #region Команды
+
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationExecute);
+
+            #endregion
+        }
     }
 }
