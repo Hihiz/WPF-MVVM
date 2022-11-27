@@ -1,12 +1,29 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.ViewModels.Base;
+using DataPoint = OxyPlot.DataPoint;
 
 namespace WPF_MVVM.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region TestDataPoints : IEnumerable<DataPoint> - DESCRIPTION
+
+        /// <summary>Тестовый набор данных для визуализации графиков </summary>
+        private IEnumerable<DataPoint> _TestDataPoints;
+
+        /// <summary>Тестовый набор данных для визуализации графиков </summary>
+        public IEnumerable<DataPoint> TestDataPoints
+        {
+            get => _TestDataPoints;
+            set => Set(ref _TestDataPoints, value);
+        }
+
+        #endregion
+
         #region Заголовок окна
         private string _Title = "Анализ статистики Cov19";
 
@@ -66,6 +83,17 @@ namespace WPF_MVVM.ViewModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationExecute);
 
             #endregion
+
+            var data_points = new List<DataPoint>((int)(360 / 0.1));
+            for (var x = 0d; x <= 360; x += 0.1)
+            {
+                const double to_rad = Math.PI / 180;
+                var y = Math.Sin(x * to_rad);
+
+                data_points.Add(new DataPoint { XValue = x, YValue = y });
+            }
+
+            TestDataPoints = data_points;
         }
     }
 }
