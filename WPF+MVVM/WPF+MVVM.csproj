@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
-    <RootNamespace>WPF_MVVM</RootNamespace>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<RootNamespace>WPF_MVVM</RootNamespace>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Data\" />
+		<Folder Include="Services\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FontAwesome5" Version="2.1.11" />
-    <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FontAwesome5" Version="2.1.11" />
+		<PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+	</ItemGroup>
 
 </Project>
- 
