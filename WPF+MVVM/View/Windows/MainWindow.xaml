@@ -14,7 +14,7 @@
 
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="Q" Command="{Binding CloseApplicationCommand}"/>
-    </Window.InputBindings>
+    </Window.InputBindings>  
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>

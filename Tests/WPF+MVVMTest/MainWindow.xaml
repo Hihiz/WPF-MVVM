@@ -18,6 +18,5 @@
         <materialDesign:Chip Content="Chip" Margin="38,220,0,0" VerticalAlignment="Top"/>
         <Label Content="Label" HorizontalAlignment="Left" Margin="262,395,0,0" VerticalAlignment="Top"/>
         <PasswordBox HorizontalAlignment="Left" Margin="298,327,0,0" VerticalAlignment="Top" Width="120"/>
-
     </Grid>
 </Window>
