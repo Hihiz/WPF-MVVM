@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Models;
 using WPF_MVVM.ViewModels.Base;
-using DataPoint = OxyPlot.DataPoint;
 
 namespace WPF_MVVM.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        #region TestDataPoints : IEnumerable<DataPoint> - DESCRIPTION
+        #region TestDataPoints : IEnumerable<DataPoint> - Тестовый набор данных для визуализации графиков
 
-        /// <summary>Тестовый набор данных для визуализации графиков </summary>
+        /// <summary>Тестовый набор данных для визуализации графиков</summary>
         private IEnumerable<DataPoint> _TestDataPoints;
 
-        /// <summary>Тестовый набор данных для визуализации графиков </summary>
+        /// <summary>Тестовый набор данных для визуализации графиков</summary>
         public IEnumerable<DataPoint> TestDataPoints
         {
             get => _TestDataPoints;
