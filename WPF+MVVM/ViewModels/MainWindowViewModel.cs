@@ -17,6 +17,18 @@ namespace WPF_MVVM.ViewModels
 
         public ObservableCollection<Group> Groups { get; }
 
+        public object[] CompositeCollection { get; }
+
+        #region SelectedCompositeValie : object -  Выбранный непонятный элемен
+
+        /// <summary> Выбранный непонятный элемент </summary>
+        private object _SelectedCompositeValue;
+
+        /// <summary> Выбранный непонятный элемент </summary>
+        public object SelectedCompositeValue { get => _SelectedCompositeValue; set => Set(ref _SelectedCompositeValue, value); }
+
+        #endregion
+
         #region SelectedGroup : Group - Выбранная группа  
 
         /// <summary> Выбранная группа </summary>
@@ -157,6 +169,16 @@ namespace WPF_MVVM.ViewModels
             });
 
             Groups = new ObservableCollection<Group>(groups);
+
+            var data_list = new List<object>();
+
+            data_list.Add("Helo Wolrd!");
+            data_list.Add(42);
+            var group = Groups[1];
+            data_list.Add(group);
+            data_list.Add(group.Students[0]);
+
+            CompositeCollection = data_list.ToArray();
         }
 
         /*------------------------------------------*/
