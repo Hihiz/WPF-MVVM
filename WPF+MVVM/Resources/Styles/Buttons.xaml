@@ -8,7 +8,7 @@
     <Style TargetType="Button" BasedOn="{StaticResource BtnBase}"/>
     <Style TargetType="ToggleButton" BasedOn="{StaticResource BtnBase}"/>
 
-    <Style x:Key="PrimaryBtn" TargetType="Button" BasedOn="{StaticResource BtnBase}">
+    <Style x:Key="PrimaryBtn" TargetType="Button" BasedOn="{StaticResource BtnBase}"> 
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
