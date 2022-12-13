@@ -7,9 +7,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WPF_MVVMTest.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="800">
+    <Window.Resources>
+       
+    </Window.Resources>
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="104,74,0,0" VerticalAlignment="Top"/>
-
+        <Button  Content="Button" HorizontalAlignment="Left" Margin="104,74,0,0" VerticalAlignment="Top"/>
         <materialDesign:TimePicker HorizontalAlignment="Left" Margin="93,0,0,0"/>
         <materialDesign:RatingBar HorizontalAlignment="Left" Margin="113,135,0,0" VerticalAlignment="Top"/>
         <materialDesign:PackIcon Margin="233,90,0,0"/>
