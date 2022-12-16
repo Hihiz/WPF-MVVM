@@ -69,11 +69,11 @@
                                                       Source="{Binding Groups}"
                                                       Filter="GroupsCollection_OnFilter">
                                     <CollectionViewSource.SortDescriptions>
-                                       
+
                                     </CollectionViewSource.SortDescriptions>
-                                    <CollectionViewSource.GroupDescriptions>
-                                        
-                                    </CollectionViewSource.GroupDescriptions>
+                                    <!--<CollectionViewSource.GroupDescriptions>
+
+                                    </CollectionViewSource.GroupDescriptions>-->
                                 </CollectionViewSource>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0, 3">
@@ -86,10 +86,10 @@
                                 <Button Content="Удалить" Padding="0, 7" Style="{StaticResource RemoveButtonStyle}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
-                                 SelectedItem="{Binding SelectedGroup}"
-                                     VirtualizingPanel.IsContainerVirtualizable="True"
-                                     VirtualizingPanel.IsVirtualizing="True"
-                                     VirtualizingPanel.VirtualizationMode="Standard">
+                                    SelectedItem="{Binding SelectedGroup}"
+                                    VirtualizingPanel.IsContainerVirtualizable="True"
+                                    VirtualizingPanel.IsVirtualizing="True"
+                                    VirtualizingPanel.VirtualizationMode="Standard">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -131,7 +131,7 @@
                                         <VirtualizingStackPanel></VirtualizingStackPanel>
                                     </ItemsPanelTemplate>
                                 </DataGrid.ItemsPanel>-->
-                                
+
                                 <!--<DataGrid.GroupStyle>
                                     <GroupStyle/>
                                 </DataGrid.GroupStyle>-->
