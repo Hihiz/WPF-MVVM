@@ -52,42 +52,7 @@
         </StatusBar>
         <TabControl SelectedIndex="{Binding SelectedPageIndex}">
 
-            <TabItem Header="Тестирование визуализации">
-                <Grid>
-                    <!--<TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}"/>-->
-                    <ListBox HorizontalAlignment="Left" Width="200" Margin="30"
-                             ItemsSource="{Binding TestStudents}"
-                              VirtualizingPanel.IsVirtualizing="True"
-                             VirtualizingPanel.VirtualizationMode="Recycling"
-                             VirtualizingPanel.IsContainerVirtualizable="True">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="decanat:Student">
-                                <Border BorderBrush="Blue" BorderThickness="1" CornerRadius="3"
-                                        Padding="3">
-                                    <Border.CacheMode>
-                                        <BitmapCache RenderAtScale="5" />
-                                    </Border.CacheMode>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Surname}" ToolTip="{Binding Name}"/>
-                                        <TextBlock Text="{Binding Name}" ToolTip="{Binding Name}"/>
-                                        <TextBlock Text="{Binding Patronymic, TargetNullValue=--}" ToolTip="{Binding Name}"/>
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
-            </TabItem>
+
 
             <TabItem Header="Студенты">
                 <Grid>
@@ -102,7 +67,14 @@
                             <DockPanel.Resources>
                                 <CollectionViewSource x:Key="GroupsCollection"                                                      
                                                       Source="{Binding Groups}"
-                                                      Filter="GroupsCollection_OnFilter"/>
+                                                      Filter="GroupsCollection_OnFilter">
+                                    <CollectionViewSource.SortDescriptions>
+                                       
+                                    </CollectionViewSource.SortDescriptions>
+                                    <CollectionViewSource.GroupDescriptions>
+                                        
+                                    </CollectionViewSource.GroupDescriptions>
+                                </CollectionViewSource>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0, 3">
                                 <!--<TextBlock Text="Фильтр:"/>-->
@@ -144,9 +116,9 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0, 3">
                                 <fa:ImageAwesome Height="12" Icon="Solid_Search" Margin="3, 0"/>
-                                <TextBox/>
+                                <TextBox Text="{Binding StudentFilterText, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
-                            <DataGrid ItemsSource="{Binding SelectedGroup.Students}" 
+                            <DataGrid ItemsSource="{Binding SelectedGroupStudents}" 
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
                                   GridLinesVisibility="Vertical"
@@ -159,6 +131,11 @@
                                         <VirtualizingStackPanel></VirtualizingStackPanel>
                                     </ItemsPanelTemplate>
                                 </DataGrid.ItemsPanel>-->
+                                
+                                <!--<DataGrid.GroupStyle>
+                                    <GroupStyle/>
+                                </DataGrid.GroupStyle>-->
+
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" Width="Auto"/>
                                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
