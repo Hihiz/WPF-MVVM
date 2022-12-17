@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -38,14 +40,77 @@ namespace WPF_MVVM.ViewModels
         public Group SelectedGroup
         {
             get => _SelectedGroup;
-            set => Set(ref _SelectedGroup, value);
+            set
+            {
+                if (!Set(ref _SelectedGroup, value)) return;
+
+                _SelectedGroupStudents.Source = value?.Students;
+                //OnPropertyChanged уведомляет об изменении свойства
+                OnPropertyChanged(nameof(SelectedGroupStudents));
+            }
         }
+
+        #endregion
+
+        #region StudentFilterText : string - Текст фильтра студентов
+
+        /// <summary>
+        /// Текст фильтра студентов
+        /// </summary>
+        private string _StudentFilterText;
+
+        /// <summary>
+        /// Тест фильтра студентов
+        /// </summary>
+        public string StudentFilterText
+        {
+            get => _StudentFilterText;
+            set
+            {
+                if (!Set(ref _StudentFilterText, value)) return;
+                _SelectedGroupStudents.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region SelectedGroupStudents
+
+        private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+
+        private void OnStudentFiltred(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Student student))
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            var filterText = _StudentFilterText;
+            if (string.IsNullOrWhiteSpace(filterText))
+                return;
+
+            if (student.Name is null || student.Surname is null || student.Patronymic is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            //Если содержить текст фильтра
+            if (student.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Surname.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Patronymic.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+        }
+
+        public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
         #endregion
 
         #region SelectedPageIndex : int - Номер выбранной вкладки
 
-        private int _SelectedPageIndex;
+        private int _SelectedPageIndex = 0;
 
         public int SelectedPageIndex
         {
@@ -102,6 +167,30 @@ namespace WPF_MVVM.ViewModels
             get => _Status;
             set => Set(ref _Status, value);
         }
+        #endregion
+
+        // public IEnumerable<Student> TestStudents =>
+        //Enumerable.Range(1, App.IsDesignMode ? 10 : 100_000)
+        //   .Select(i => new Student
+        //   {
+        //       Name = $"Имя {i}",
+        //       Surname = $"Фамилия {i}"
+        //   });
+
+        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
+
+        #region SelectedDirectory : DirectoryViewModel - Выбранная директория
+
+        /// <summary>
+        /// Выбранная директория
+        /// </summary>
+        private DirectoryViewModel _SelectedDirectory;
+
+        /// <summary>
+        /// Выбранная директория
+        /// </summary>
+        public DirectoryViewModel SelectedDirectory { get => _SelectedDirectory; set => Set(ref _SelectedDirectory, value); }
+
         #endregion
 
         /*------------------------------------------*/
@@ -217,6 +306,14 @@ namespace WPF_MVVM.ViewModels
             data_list.Add(group.Students[0]);
 
             CompositeCollection = data_list.ToArray();
+
+            _SelectedGroupStudents.Filter += OnStudentFiltred;
+
+            //Сортировка в обратном порядке
+            // _SelectedGroupStudents.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
+
+            //Групировка
+            //_SelectedGroupStudents.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
         }
 
         /*------------------------------------------*/
