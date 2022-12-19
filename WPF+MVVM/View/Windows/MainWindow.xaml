@@ -13,15 +13,16 @@
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         Title="{Binding Title}" 
         Height="450" 
+         DataContext="{vm:MainWindowViewModel}"
         Width="800">
 
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="Q" Command="{Binding CloseApplicationCommand}"/>
     </Window.InputBindings>
 
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>

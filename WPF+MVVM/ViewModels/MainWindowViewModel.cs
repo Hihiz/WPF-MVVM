@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
 using WPF_MVVM.Models.Decanat;
@@ -11,6 +12,7 @@ using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
+    [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : ViewModel
     {
         /*------------------------------------------*/
@@ -179,7 +181,8 @@ namespace WPF_MVVM.ViewModels
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            (RootObject as Window)?.Close();
+            //Application.Current.Shutdown();
         }
 
         #endregion
