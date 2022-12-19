@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WPF_MVVM.View
 {
     /// <summary>
-    /// Логика взаимодействия для CountriesStaticticView.xaml
+    /// Логика взаимодействия для CountriesStatisticView.xaml
     /// </summary>
-    public partial class CountriesStaticticView : UserControl
+    public partial class CountriesStatisticView : UserControl
     {
-        public CountriesStaticticView()
+        public CountriesStatisticView()
         {
             InitializeComponent();
         }

@@ -15,7 +15,7 @@ namespace WPF_MVVM.ViewModels
     {
         /*------------------------------------------*/
 
-        private readonly CountriesStatisticViewModel _CountriesStatistic;
+        public CountriesStatisticViewModel CountriesStatistic { get; }
 
         /*------------------------------------------*/
 
@@ -199,7 +199,7 @@ namespace WPF_MVVM.ViewModels
         /*------------------------------------------*/
         public MainWindowViewModel()
         {
-            _CountriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = new CountriesStatisticViewModel(this);
 
             #region Команды
 

@@ -53,7 +53,8 @@
         </StatusBar>
         <TabControl>
             <TabItem Header="Статистика">
-                <view:CountriesStaticticView/>
+                <!--<view:CountriesStaticticView/>-->
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatistic}"/>
             </TabItem>
 
             <TabItem Header="Студенты">

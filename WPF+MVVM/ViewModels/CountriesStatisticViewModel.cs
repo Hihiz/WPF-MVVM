@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -16,13 +19,13 @@ namespace WPF_MVVM.ViewModels
         #region Contries : IEnumerable<CountryInfo> - Статистика по странам
 
         /// <summary>Статистика по странам</summary>
-        private IEnumerable<CountryInfo> _Contries;
+        private IEnumerable<CountryInfo> _Countries;
 
         /// <summary>Статистика по странам</summary>
-        public IEnumerable<CountryInfo> Contries
+        public IEnumerable<CountryInfo> Countries
         {
-            get => _Contries;
-            private set => Set(ref _Contries, value);
+            get => _Countries;
+            private set => Set(ref _Countries, value);
         }
 
         #endregion
@@ -33,10 +36,33 @@ namespace WPF_MVVM.ViewModels
 
         private void OnRefreshDataCommandExecuted(object p)
         {
-            Contries = _DataService.GetData();
+            Countries = _DataService.GetData();
         }
 
         #endregion
+
+        /// <summary>Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере</summary>
+        public CountriesStatisticViewModel() : this(null)
+        {
+            if (!App.IsDesignMode)
+                throw new InvalidOperationException("Вызов конструктора, непредназначенного для использования в обычном режиме");
+
+            _Countries = Enumerable.Range(1, 10)
+               .Select(i => new CountryInfo
+               {
+                   Name = $"Country {i}",
+                   ProvinceCounts = Enumerable.Range(1, 10).Select(j => new PlaceInfo
+                   {
+                       Name = $"Province {i}",
+                       Location = new Point(i, j),
+                       Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
+                       {
+                           Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
+                           Count = k
+                       }).ToArray()
+                   }).ToArray()
+               }).ToArray();
+        }
 
         public CountriesStatisticViewModel(MainWindowViewModel MainModel)
         {
