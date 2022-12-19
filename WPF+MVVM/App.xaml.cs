@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using WPF_MVVM.Services;
+﻿using System.Windows;
 
 namespace WPF_MVVM
 {
@@ -20,13 +13,6 @@ namespace WPF_MVVM
         {
             IsDesignMode = false;
             base.OnStartup(e);
-
-            var serviceTest = new DataService();
-
-            var countries = serviceTest.GetData().ToArray();
         }
-
-
-
     }
 }

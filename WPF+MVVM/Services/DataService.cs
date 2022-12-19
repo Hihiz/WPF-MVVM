@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using WPF_MVVM.Models;
 
@@ -24,12 +25,12 @@ namespace WPF_MVVM.Services
 
         private static IEnumerable<string> GetDataLines()
         {
-            using var data_stream = GetDataStream().Result;
-            using var data_reader = new StreamReader(data_stream);
+            using var dataStream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
+            using var dataReader = new StreamReader(dataStream);
 
-            while (!data_reader.EndOfStream)
+            while (!dataReader.EndOfStream)
             {
-                var line = data_reader.ReadLine();
+                var line = dataReader.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 yield return line
                     .Replace("Korea,", "Korea -")
@@ -56,9 +57,9 @@ namespace WPF_MVVM.Services
             {
                 var province = row[0].Trim();
                 var country_name = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[2]);
-                var longitude = double.Parse(row[3]);
-                var counts = row.Skip(5).Select(int.Parse).ToArray();
+                var latitude = double.Parse(row[2], CultureInfo.InvariantCulture);
+                var longitude = double.Parse(row[3], CultureInfo.InvariantCulture);
+                var counts = row.Skip(4).Select(int.Parse).ToArray();
                 //var counts = row.Skip(4).Select(int.Parse).ToArray();
 
                 yield return (province, country_name, (latitude, longitude), counts);
