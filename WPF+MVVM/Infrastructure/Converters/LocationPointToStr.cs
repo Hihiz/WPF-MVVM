@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.Windows.Data;
 
 namespace WPF_MVVM.Infrastructure.Converters
 {
+    [ValueConversion(typeof(Point), typeof(string))]
     internal class LocationPointToStr : Converter
     {
         public override object Convert(object value, Type t, object p, CultureInfo c)
