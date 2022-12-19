@@ -12,7 +12,7 @@ namespace WPF_MVVM.ViewModels
 {
     internal class CountriesStatisticViewModel : ViewModel
     {
-        private DataService _DataService;
+        private readonly DataService _DataService;
 
         private MainWindowViewModel MainModel { get; }
 
@@ -27,6 +27,16 @@ namespace WPF_MVVM.ViewModels
             get => _Countries;
             private set => Set(ref _Countries, value);
         }
+
+        #endregion
+
+        #region SelectedCountry : CountryInfo - Выбранная страна
+
+        /// <summary>Выбранная страна</summary>
+        private CountryInfo _SelectedCountry;
+
+        /// <summary>Выбранная страна</summary>
+        public CountryInfo SelectedCountry { get => _SelectedCountry; set => Set(ref _SelectedCountry, value); }
 
         #endregion
 
