@@ -6,28 +6,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:WPF_MVVM.Infrastructure.Commands"
-        xmlns:vm="clr-namespace:WPF_MVVM.ViewModels"
+        
         xmlns:decanat="clr-namespace:WPF_MVVM.Models.Decanat"
         xmlns:view="clr-namespace:WPF_MVVM.View"
         mc:Ignorable="d"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime" 
+        xmlns:vm="clr-namespace:WPF_MVVM.ViewModels"
         Title="{Binding Title}" 
         Height="450" 
-         DataContext="{vm:MainWindowViewModel}"
+      
         Width="800">
 
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="Q" Command="{Binding CloseApplicationCommand}"/>
     </Window.InputBindings>
 
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>-->
+    </Window.DataContext>
 
+    
+    
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
     </Window.Resources>
 
+    
+    
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
