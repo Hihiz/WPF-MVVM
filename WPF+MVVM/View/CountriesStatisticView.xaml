@@ -10,6 +10,7 @@
              xmlns:c="clr-namespace:WPF_MVVM.Infrastructure.Converters"
              xmlns:m="clr-namespace:WPF_MVVM.Models"
              xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
               xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=True}"
@@ -90,6 +91,13 @@
                                     DataFieldX="Date" DataFieldY="Count"/>
                 </oxy:Plot>
 
+                <map:Map Grid.Row="1" ZoomLevel="4" MaxZoomLevel="21" Center="{Binding SelectedCountry.Location, Converter={c:PointToMapLocation}}">
+                    <map:MapScale Margin="4" Opacity="1" Background="Transparent" VerticalAlignment="Bottom"/>
+                    <map:MapGraticule Opacity="0.3" Background="Transparent"/>
+                    <map:Map.MapLayer>
+                        <map:MapTileLayer TileSource="http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png"/>
+                    </map:Map.MapLayer>
+                </map:Map>
 
             </Grid>
         </GroupBox>
