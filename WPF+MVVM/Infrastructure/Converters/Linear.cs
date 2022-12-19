@@ -7,6 +7,7 @@ namespace WPF_MVVM.Infrastructure.Converters
 {
     /// <summary>Реализация линейного преобразования f(x) = k*x + b</summary>
     [ValueConversion(typeof(double), typeof(double))]
+    [MarkupExtensionReturnType(typeof(Linear))]
     internal class Linear : Converter
     {
         [ConstructorArgument("K")]

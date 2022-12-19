@@ -9,6 +9,7 @@
              xmlns:vm="clr-namespace:WPF_MVVM.ViewModels"
              xmlns:c="clr-namespace:WPF_MVVM.Infrastructure.Converters"
              xmlns:m="clr-namespace:WPF_MVVM.Models"
+             xmlns:common="clr-namespace:WPF_MVVM.Infrastructure.Common"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -57,7 +58,7 @@
             <Grid>
                 <Grid.Resources>
                     <sys:Double x:Key="Value3">3</sys:Double>
-                    
+
                     <c:Ratio K="2" x:Key="Ratio2"/>
                     <c:Linear K="5" B="{StaticResource Value3}" x:Key="Linear_K5_B3"/>
 
@@ -78,21 +79,29 @@
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Panel.ZIndex="1000"/>
                 <StackPanel Grid.Row="0">
-                    <Slider Name="Value1" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
-                    <Slider Name="Value2" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
-                    <Slider Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
+                    <Slider Name="Value1" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={c:Linear K=5}}"/>
+                    <Slider Name="Value2" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={c:CompositeConverter First={c:Add 5}, Second={c:Ratio 7}}}"/>
+                    <Slider Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}, Converter={c:CompositeConverter {c:Linear 5, 7}, {c:CompositeConverter {c:Ratio 6}, {c:Add 7}}}}"/>
                     <Slider Name="Value4" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}"/>
                 </StackPanel>
-                <ListBox Grid.Row="1">
-                    <ListBox.ItemsSource>
-                        <MultiBinding Converter="{StaticResource ToArrayConverter}">
+
+                <Border Grid.Row="1">
+                    <Border.DataContext>
+                        <common:StringToIntArray Str="1;2;3;4"/>
+                    </Border.DataContext>
+                    <ListBox Grid.Row="1" ItemsSource="{Binding}">
+
+                        <!--<MultiBinding Converter="{StaticResource ToArrayConverter}">
                             <Binding ElementName="Value1" Path="Value"/>
                             <Binding ElementName="Value2" Path="Value"/>
                             <Binding ElementName="Value3" Path="Value"/>
                             <Binding ElementName="Value4" Path="Value"/>
-                        </MultiBinding>
-                    </ListBox.ItemsSource>
-                </ListBox>
+                        </MultiBinding>-->
+
+                    </ListBox>
+                </Border>
+
+
             </Grid>
         </GroupBox>
     </Grid>
