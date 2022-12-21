@@ -6,6 +6,7 @@
 		<RootNamespace>WPF_MVVM</RootNamespace>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
+		<StartupObject>WPF_MVVM.Program</StartupObject>
 	</PropertyGroup>
 
 	<ItemGroup>
