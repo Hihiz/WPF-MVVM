@@ -55,7 +55,7 @@ namespace WPF_MVVM.ViewModels
         public CountriesStatisticViewModel() : this(null)
         {
             if (!App.IsDesignMode)
-                throw new InvalidOperationException("Вызов конструктора, непредназначенного для использования в обычном режиме");
+                throw new InvalidOperationException("Вызов конструктора, не предназначенного для использования в обычном режиме");
 
             _Countries = Enumerable.Range(1, 10)
                .Select(i => new CountryInfo

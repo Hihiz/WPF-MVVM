@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+
 using WPF_MVVM.Models;
 
 namespace WPF_MVVM.Services
@@ -55,14 +56,13 @@ namespace WPF_MVVM.Services
 
             foreach (var row in lines)
             {
-                var province = row[0].Trim();
-                var country_name = row[1].Trim(' ', '"');
+                var province = row[0].Trim(); 
+                var countryName = row[1].Trim(' ', '"');
                 var latitude = double.Parse(row[2], CultureInfo.InvariantCulture);
                 var longitude = double.Parse(row[3], CultureInfo.InvariantCulture);
                 var counts = row.Skip(4).Select(int.Parse).ToArray();
-                //var counts = row.Skip(4).Select(int.Parse).ToArray();
 
-                yield return (province, country_name, (latitude, longitude), counts);
+                yield return (province, countryName, (latitude, longitude), counts);
             }
         }
 
@@ -72,21 +72,21 @@ namespace WPF_MVVM.Services
 
             var data = GetCountriesData().GroupBy(d => d.Country);
 
-            foreach (var countryInfo in data)
+            foreach (var countryШnfo in data)
             {
                 var country = new CountryInfo
                 {
-                    Name = countryInfo.Key,
-                    Provinces = countryInfo.Select(c => new PlaceInfo
+                    Name = countryШnfo.Key,
+                    Provinces = countryШnfo.Select(c => new PlaceInfo
                     {
                         Name = c.Province,
                         Location = new Point((int)c.Place.Lat, (int)c.Place.Lon),
                         Counts = dates.Zip(c.Counts, (date, count) => new ConfirmedCount { Date = date, Count = count })
                     })
                 };
-
                 yield return country;
             }
+
         }
     }
 }
