@@ -170,6 +170,16 @@ namespace WPF_MVVM.ViewModels
 
 
 
+        #region DataValue : string - Результат длительной асинхронной операции
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        private string _DataValue;
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        public string DataValue { get => _DataValue; private set => Set(ref _DataValue, value); }
+
+        #endregion
+
         /*------------------------------------------*/
 
         #region Команды
@@ -187,6 +197,11 @@ namespace WPF_MVVM.ViewModels
         }
 
         #endregion
+
+        private void ComputeValue()
+        {
+            DataValue = _AsyncData.GetResult(DateTime.Now);
+        }
 
         #region ChangeTabIndexCommand
         public ICommand ChangeTabIndexCommand { get; }
@@ -209,7 +224,7 @@ namespace WPF_MVVM.ViewModels
 
 
             #region Команды
-            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
             #endregion
             var data_points = new List<DataPoint>((int)(360 / 0.1));
