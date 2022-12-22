@@ -43,11 +43,7 @@ namespace WPF_MVVM
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddSingleton<DataService>();
-
-            services.AddSingleton<MainWindowViewModel>();
-
-            services.AddSingleton<CountriesStatisticViewModel>();
+            services.AddSingleton<IDataService, DataService>();
         }
 
 

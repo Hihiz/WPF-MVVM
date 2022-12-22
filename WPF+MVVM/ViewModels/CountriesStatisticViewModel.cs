@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Interfaces;
 using WPF_MVVM.Models;
 using WPF_MVVM.Services;
 using WPF_MVVM.ViewModels.Base;
@@ -9,8 +10,7 @@ namespace WPF_MVVM.ViewModels
 {
     internal class CountriesStatisticViewModel : ViewModel
     {
-        private readonly DataService _DataService;
-
+        private readonly IDataService _DataService;
         public MainWindowViewModel MainModel { get; internal set; }
 
 
@@ -72,7 +72,7 @@ namespace WPF_MVVM.ViewModels
         //       }).ToArray();
         //}
 
-        public CountriesStatisticViewModel(DataService DataService)
+        public CountriesStatisticViewModel(IDataService DataService)
         {
             _DataService = DataService;
 
