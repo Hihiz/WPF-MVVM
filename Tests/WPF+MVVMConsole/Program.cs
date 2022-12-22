@@ -2,6 +2,8 @@
 {
     class Program
     {
+        private static bool __ThreadUpdate = true;
+
         static void Main(string[] args)
         {
             Thread.CurrentThread.Name = "Main theread";
