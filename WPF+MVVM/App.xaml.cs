@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Windows;
 using WPF_MVVM.Services;
 using WPF_MVVM.ViewModels;
@@ -13,11 +14,30 @@ namespace WPF_MVVM
     {
         public static bool IsDesignMode { get; private set; } = true;
 
-        protected override void OnStartup(StartupEventArgs e)
+
+        private static IHost __Host;
+
+        public static IHost Host => __Host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+
+        protected override async void OnStartup(StartupEventArgs e)
         {
             IsDesignMode = false;
+            var host = Host;
             base.OnStartup(e);
+
+            await host.StartAsync().ConfigureAwait(false);
         }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            var host = Host;
+            await host.StopAsync().ConfigureAwait(false);
+            host.Dispose();
+            __Host = null;
+        }
+
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
