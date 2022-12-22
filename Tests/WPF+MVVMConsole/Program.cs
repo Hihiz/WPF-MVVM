@@ -1,86 +1,47 @@
-﻿using System.Data;
-using System.Globalization;
-
-namespace WPF_MVVMConsole
+﻿namespace WPF_MVVMConsole
 {
     internal class Program
     {
-        // заболеваемость cov19
-        private const string data_url = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
-
-        private static async Task<Stream> GetDataStream()
-        {
-            var client = new HttpClient();
-            var response = await client.GetAsync(data_url, HttpCompletionOption.ResponseHeadersRead);
-            return await response.Content.ReadAsStreamAsync();
-        }
-
-        private static IEnumerable<string> GetDataLines()
-        {
-            using var data_stream = GetDataStream().Result;
-            using var data_reader = new StreamReader(data_stream);
-
-            while (!data_reader.EndOfStream)
-            {
-                var line = data_reader.ReadLine();
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                yield return line.Replace("Korea,", "Korea -");
-            }
-        }
-
-        // Парсинг сторки с всеми датами
-        private static DateTime[] GetDates() => GetDataLines()
-            .First()
-            .Split(',')
-            .Skip(4)
-            .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
-            .ToArray();
-
-        private static IEnumerable<(string Contry, string Province, int[] Counts)> GetData()
-        {
-            var lines = GetDataLines()
-               .Skip(1)
-               .Select(line => line.Split(','));
-
-            foreach (var row in lines)
-            {
-                var province = row[0].Trim();
-                var country_name = row[1].Trim(' ', '"');
-                var counts = row.Skip(5).Select(int.Parse).ToArray();
-                //var counts = row.Skip(4).Select(int.Parse).ToArray();
-
-                yield return (country_name, province, counts);
-            }
-        }
-
         static void Main(string[] args)
         {
-            //var web_client = new WebClient();
+            Thread.CurrentThread.Name = "Main theread";
 
-            //var client = new HttpClient();
+            var thread = new Thread(ThreadMethod);
+            thread.Name = "Other thread";
+            thread.IsBackground = true;
+            thread.Priority = ThreadPriority.AboveNormal;
 
-            ////Получить последний элемент в массиве
-            //string[] items = new string[10] { "1", "2", "3", "4", "5", "6", "Helo World", "7", "Helo", "last" };
-            //string lastItem = items[^1];
-            ////предпоследний элемент
-            //string prev_last_item = items[^2]; 
+            thread.Start(42);
 
-            //var response = client.GetAsync(data_url).Result;
-            //var csv_str = response.Content.ReadAsStringAsync().Result;
+            CheckThread();
 
-            //foreach (var data_line in GetDataLines())
-            //    Console.WriteLine(data_line);
+            for (var i = 0; i < 5; i++)
+            {
+                Thread.Sleep(100);
+                Console.WriteLine(i);
 
-            //var dates = GetDates();
+                Console.ReadLine();
+            }
+        }
 
-            //Console.WriteLine(string.Join("\r\n", dates));
+        private static void ThreadMethod(object parameter)
+        {
+            var value = (long)parameter;
+            Console.WriteLine(value);
 
-            var russia_data = GetData()
-            .First(v => v.Contry.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+            CheckThread();
 
-            Console.WriteLine(string.Join("\r\n", GetDates().Zip(russia_data.Counts, (date, count) => $"{date:dd:MM} - {count}")));
+            while (true)
+            {
+                Thread.Sleep(100);
+                Console.Title = DateTime.Now.ToString();
+            }
+        }
 
-            Console.ReadLine();
+        private static void CheckThread()
+        {
+            var thread = Thread.CurrentThread;
+            Console.WriteLine("id:{0} - {1}", thread.ManagedThreadId, thread.Name);
         }
     }
 }
