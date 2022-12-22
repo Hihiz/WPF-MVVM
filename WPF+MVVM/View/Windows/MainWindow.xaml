@@ -12,6 +12,7 @@
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime" 
         xmlns:vm="clr-namespace:WPF_MVVM.ViewModels"
+            DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" 
         Height="450" 
       
@@ -20,19 +21,12 @@
     <Window.InputBindings>
         <KeyBinding Modifiers="Control" Key="Q" Command="{Binding CloseApplicationCommand}"/>
     </Window.InputBindings>
-
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>
-
-
-
+    </Window.DataContext>-->
     <Window.Resources>
         <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
     </Window.Resources>
-
-
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -49,7 +43,7 @@
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem MinWidth="150" MaxWidth="300">
+            <StatusBarItem MinWidth="150" MaxWidth="350">
                 <TextBlock Text="{Binding Status}"/>
             </StatusBarItem>
             <StatusBarItem>
@@ -59,7 +53,6 @@
         </StatusBar>
         <TabControl>
             <TabItem Header="Статистика">
-                <!--<view:CountriesStaticticView/>-->
                 <view:CountriesStatisticView DataContext="{Binding CountriesStatistic}"/>
             </TabItem>
             <TabItem Header="Отладка">
@@ -68,4 +61,3 @@
         </TabControl>
     </DockPanel>
 </Window>
- 

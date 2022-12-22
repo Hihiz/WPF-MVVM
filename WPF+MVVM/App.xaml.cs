@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using WPF_MVVM.Services;
@@ -43,6 +44,9 @@ namespace WPF_MVVM
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<DataService>();
+
+            services.AddSingleton<MainWindowViewModel>();
+
             services.AddSingleton<CountriesStatisticViewModel>();
         }
 

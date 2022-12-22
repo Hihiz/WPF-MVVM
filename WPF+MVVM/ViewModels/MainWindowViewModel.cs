@@ -167,7 +167,7 @@ namespace WPF_MVVM.ViewModels
         //       Surname = $"Фамилия {i}"
         //   });
 
-       
+
 
         /*------------------------------------------*/
 
@@ -200,15 +200,17 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
         /*------------------------------------------*/
-        public MainWindowViewModel()
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
         {
-            CountriesStatistic = new CountriesStatisticViewModel(this);
+            //CountriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = Statistic;
+            Statistic.MainModel = this;
 
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
-            
+
             #endregion
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));

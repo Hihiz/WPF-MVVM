@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
 using WPF_MVVM.Models;
@@ -14,7 +11,8 @@ namespace WPF_MVVM.ViewModels
     {
         private readonly DataService _DataService;
 
-        private MainWindowViewModel MainModel { get; }
+        public MainWindowViewModel MainModel { get; internal set; }
+
 
         #region Contries : IEnumerable<CountryInfo> - Статистика по странам
 
@@ -51,40 +49,52 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
-        /// <summary>Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере</summary>
-        public CountriesStatisticViewModel() : this(null)
+        ///// <summary>Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере</summary>
+        //public CountriesStatisticViewModel() : this(null)
+        //{
+        //    if (!App.IsDesignMode)
+        //        throw new InvalidOperationException("Вызов конструктора, не предназначенного для использования в обычном режиме");
+
+        //    _Countries = Enumerable.Range(1, 10)
+        //       .Select(i => new CountryInfo
+        //       {
+        //           Name = $"Country {i}",
+        //           Provinces = Enumerable.Range(1, 10).Select(j => new PlaceInfo
+        //           {
+        //               Name = $"Province {i}",
+        //               Location = new Point(i, j),
+        //               Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
+        //               {
+        //                   Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
+        //                   Count = k
+        //               }).ToArray()
+        //           }).ToArray()
+        //       }).ToArray();
+        //}
+
+        public CountriesStatisticViewModel(DataService DataService)
         {
-            if (!App.IsDesignMode)
-                throw new InvalidOperationException("Вызов конструктора, не предназначенного для использования в обычном режиме");
-
-            _Countries = Enumerable.Range(1, 10)
-               .Select(i => new CountryInfo
-               {
-                   Name = $"Country {i}",
-                   Provinces = Enumerable.Range(1, 10).Select(j => new PlaceInfo
-                   {
-                       Name = $"Province {i}",
-                       Location = new Point(i, j),
-                       Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
-                       {
-                           Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
-                           Count = k
-                       }).ToArray()
-                   }).ToArray()
-               }).ToArray();
-        }
-
-        public CountriesStatisticViewModel(MainWindowViewModel MainModel)
-        {
-            this.MainModel = MainModel;
-
-            _DataService = new DataService();
+            _DataService = DataService;
 
             #region Команды
 
             RefreshDataCommand = new LambdaCommand(OnRefreshDataCommandExecuted);
 
             #endregion
+
         }
+
+        //public CountriesStatisticViewModel(MainWindowViewModel MainModel)
+        //{
+        //    this.MainModel = MainModel;
+
+        //    _DataService = new DataService();
+
+        //    #region Команды
+
+        //    RefreshDataCommand = new LambdaCommand(OnRefreshDataCommandExecuted);
+
+        //    #endregion
+        //}
     }
 }
