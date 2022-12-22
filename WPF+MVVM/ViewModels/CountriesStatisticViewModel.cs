@@ -76,6 +76,17 @@ namespace WPF_MVVM.ViewModels
         {
             _DataService = DataService;
 
+            //var data = App.Host.Services.GetRequiredService<IDataService>();
+
+            //var are_ref_equal = ReferenceEquals(DataService, data);
+
+            //using (var scope = App.Host.Services.CreateScope())
+            //{
+            //    var data2 = scope.ServiceProvider.GetRequiredService<IDataService>();
+            //    var are_ref_equal2 = ReferenceEquals(DataService, data2);
+            //    var are_ref_equal3 = ReferenceEquals(data, data2);
+            //}
+
             #region Команды
 
             RefreshDataCommand = new LambdaCommand(OnRefreshDataCommandExecuted);
