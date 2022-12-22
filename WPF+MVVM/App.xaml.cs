@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using WPF_MVVM.Services;
 using WPF_MVVM.ViewModels;
@@ -44,5 +45,12 @@ namespace WPF_MVVM
             services.AddSingleton<DataService>();
             services.AddSingleton<CountriesStatisticViewModel>();
         }
+
+
+        public static string CurrentDirectory => IsDesignMode
+            ? Path.GetDirectoryName(GetSourceCodePath())
+            : Environment.CurrentDirectory;
+
+        private static string GetSourceCodePath([CallerFilePath] string Path = null) => Path;
     }
 }

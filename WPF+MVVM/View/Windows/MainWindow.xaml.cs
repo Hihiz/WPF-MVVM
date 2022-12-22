@@ -16,22 +16,22 @@ namespace WPF_MVVM
             InitializeComponent();
         }
 
-        private void GroupsCollection_OnFilter(object sender, FilterEventArgs e)
-        {
-            // если item не является группой
-            if (!(e.Item is Group group)) return;
+        //private void GroupsCollection_OnFilter(object sender, FilterEventArgs e)
+        //{
+        //    // если item не является группой
+        //    if (!(e.Item is Group group)) return;
 
-            if (group.Name is null) return;
+        //    if (group.Name is null) return;
 
-            var filterText = GroupNameFilterText.Text;
-            if (filterText.Length == 0) return;
+        //    var filterText = GroupNameFilterText.Text;
+        //    if (filterText.Length == 0) return;
 
 
-            if (group.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
-            if (group.Description != null && group.Description.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    if (group.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+        //    if (group.Description != null && group.Description.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
 
-            e.Accepted = false;
-        }
+        //    e.Accepted = false;
+        //}
 
         private void OnGroupsFilterTextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
