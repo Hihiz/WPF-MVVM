@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
+using WPF_MVVM.Interfaces;
 using WPF_MVVM.Models;
 
 namespace WPF_MVVM.Services

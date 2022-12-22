@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Interfaces;
 using WPF_MVVM.Models;
 using WPF_MVVM.Models.Decanat;
 using WPF_MVVM.ViewModels.Base;
@@ -15,8 +16,8 @@ namespace WPF_MVVM.ViewModels
     [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : ViewModel
     {
+        private readonly IAsyncDataService _AsyncData;
         /*------------------------------------------*/
-
         public CountriesStatisticViewModel CountriesStatistic { get; }
 
         /*------------------------------------------*/
@@ -200,28 +201,24 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
         /*------------------------------------------*/
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService AsyncData)
         {
-            //CountriesStatistic = new CountriesStatisticViewModel(this);
+            _AsyncData = AsyncData;
             CountriesStatistic = Statistic;
             Statistic.MainModel = this;
 
+
             #region Команды
-
-            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationExecute);
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
-
             #endregion
-
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 const double to_rad = Math.PI / 180;
                 var y = Math.Sin(x * to_rad);
-
                 data_points.Add(new DataPoint { XValue = x, YValue = y });
             }
-
             TestDataPoints = data_points;
 
         }

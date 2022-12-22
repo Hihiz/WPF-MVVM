@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using WPF_MVVM.Interfaces;
 using WPF_MVVM.Services;
 using WPF_MVVM.ViewModels;
 
@@ -41,10 +42,9 @@ namespace WPF_MVVM
         }
 
 
-        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-        {
-            services.AddSingleton<IDataService, DataService>();
-        }
+        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+                .RegisterServices()
+                .RegisterViewModels();
 
 
         public static string CurrentDirectory => IsDesignMode
