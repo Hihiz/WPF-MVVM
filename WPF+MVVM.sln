@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF+MVVMConsole", "Tests\WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF+MVVMTest", "Tests\WPF+MVVMTest\WPF+MVVMTest.csproj", "{7B720120-3922-4FB3-ACB5-182096A7EA5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF+MVVM.Web", "WPF+MVVM.Web\WPF+MVVM.Web.csproj", "{4429D8FA-5EA2-4041-9990-B64E679E9093}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{7B720120-3922-4FB3-ACB5-182096A7EA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B720120-3922-4FB3-ACB5-182096A7EA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B720120-3922-4FB3-ACB5-182096A7EA5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4429D8FA-5EA2-4041-9990-B64E679E9093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4429D8FA-5EA2-4041-9990-B64E679E9093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4429D8FA-5EA2-4041-9990-B64E679E9093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4429D8FA-5EA2-4041-9990-B64E679E9093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Interfaces;
 using WPF_MVVM.Models;
 using WPF_MVVM.Models.Decanat;
 using WPF_MVVM.ViewModels.Base;
@@ -15,9 +16,11 @@ namespace WPF_MVVM.ViewModels
     [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : ViewModel
     {
+        private readonly IAsyncDataService _AsyncData;
         /*------------------------------------------*/
-
         public CountriesStatisticViewModel CountriesStatistic { get; }
+
+        public WebServerViewModel WebServer { get; }
 
         /*------------------------------------------*/
 
@@ -169,6 +172,16 @@ namespace WPF_MVVM.ViewModels
 
 
 
+        #region DataValue : string - Результат длительной асинхронной операции
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        private string _DataValue;
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        public string DataValue { get => _DataValue; private set => Set(ref _DataValue, value); }
+
+        #endregion
+
         /*------------------------------------------*/
 
         #region Команды
@@ -187,6 +200,11 @@ namespace WPF_MVVM.ViewModels
 
         #endregion
 
+        private void ComputeValue()
+        {
+            DataValue = _AsyncData.GetResult(DateTime.Now);
+        }
+
         #region ChangeTabIndexCommand
         public ICommand ChangeTabIndexCommand { get; }
         private bool CanChangeTabIndexCommandExecute(object p) => _SelectedPageIndex >= 0;
@@ -200,28 +218,25 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
         /*------------------------------------------*/
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
+          public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService AsyncData, WebServerViewModel WebServer)
         {
-            //CountriesStatistic = new CountriesStatisticViewModel(this);
+            _AsyncData = AsyncData;
             CountriesStatistic = Statistic;
+            this.WebServer = WebServer;
             Statistic.MainModel = this;
 
+
             #region Команды
-
-            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationExecute);
+            //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
             ChangeTabIndexCommand = new LambdaCommand(OnChangeTabIndexCommandExecuted, CanChangeTabIndexCommandExecute);
-
             #endregion
-
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 const double to_rad = Math.PI / 180;
                 var y = Math.Sin(x * to_rad);
-
                 data_points.Add(new DataPoint { XValue = x, YValue = y });
             }
-
             TestDataPoints = data_points;
 
         }
