@@ -8,6 +8,9 @@ namespace WPF_MVVMConsole
 
         static void Main(string[] args)
         {
+            WebServerTest.Run();
+            return;
+
             ManualResetEvent manual_reset_event = new ManualResetEvent(false);
             AutoResetEvent auto_reset_event = new AutoResetEvent(false);
 
@@ -40,7 +43,6 @@ namespace WPF_MVVMConsole
 
             Console.ReadLine();
         }
-
         [MethodImpl(MethodImplOptions.Synchronized)]
         private static void PrintMethod(string Message, int Count, int Timeout)
         {

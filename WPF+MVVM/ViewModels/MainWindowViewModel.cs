@@ -20,6 +20,8 @@ namespace WPF_MVVM.ViewModels
         /*------------------------------------------*/
         public CountriesStatisticViewModel CountriesStatistic { get; }
 
+        public WebServerViewModel WebServer { get; }
+
         /*------------------------------------------*/
 
         #region StudentFilterText : string - Текст фильтра студентов
@@ -216,10 +218,11 @@ namespace WPF_MVVM.ViewModels
         #endregion
 
         /*------------------------------------------*/
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService AsyncData)
+          public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService AsyncData, WebServerViewModel WebServer)
         {
             _AsyncData = AsyncData;
             CountriesStatistic = Statistic;
+            this.WebServer = WebServer;
             Statistic.MainModel = this;
 
 
