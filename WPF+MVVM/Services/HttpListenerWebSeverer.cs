@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.Web;
 
@@ -21,6 +22,7 @@ namespace WPF_MVVM.Services
         {
             using var writer = new StreamWriter(E.Context.Response.OutputStream);
             writer.WriteLine("CV-19 Application");
+            writer.WriteLine("CV-19 Application - " + DateTime.Now);
         }
     }
 }

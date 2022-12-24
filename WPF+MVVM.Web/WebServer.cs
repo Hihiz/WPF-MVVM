@@ -52,18 +52,21 @@ namespace WPF_MVVM.Web
 
             listener.Start();
 
+            HttpListenerContext context = null;
             while (_Enabled)
             {
-                var context = await listener.GetContextAsync().ConfigureAwait(false);
-                ProcessRequest(context);
+                var get_context_task = listener.GetContextAsync();
+                if (context != null)
+                    ProcessRequestAsync(context);
+                context = await get_context_task.ConfigureAwait(false);
             }
 
             listener.Stop();
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private async void ProcessRequestAsync(HttpListenerContext context)
         {
-            RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context));
+            await Task.Run(() => RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context)));
         }
 
     }
