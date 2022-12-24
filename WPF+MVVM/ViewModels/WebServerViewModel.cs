@@ -1,11 +1,14 @@
 ﻿using System.Windows.Input;
 using WPF_MVVM.Infrastructure.Commands;
+using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.ViewModels.Base;
 
 namespace WPF_MVVM.ViewModels
 {
     internal class WebServerViewModel : ViewModel
     {
+        private readonly IWebServerService _Server;
+
         #region Enabled
 
         private bool _Enabled;
@@ -45,5 +48,7 @@ namespace WPF_MVVM.ViewModels
         }
 
         #endregion
+
+        public WebServerViewModel(IWebServerService Server) => _Server = Server;
     }
 }
