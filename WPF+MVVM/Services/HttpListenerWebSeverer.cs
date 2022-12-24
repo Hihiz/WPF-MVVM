@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using WPF_MVVM.Services.Interfaces;
 using WPF_MVVM.Web;
 
@@ -20,6 +21,7 @@ namespace WPF_MVVM.Services
 
         private static void OnRequestReceived(object Sender, RequestReceiverEventArgs E)
         {
+            Thread.Sleep(3000);
             using var writer = new StreamWriter(E.Context.Response.OutputStream);
             writer.WriteLine("CV-19 Application");
             writer.WriteLine("CV-19 Application - " + DateTime.Now);
