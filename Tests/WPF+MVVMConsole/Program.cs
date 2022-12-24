@@ -1,4 +1,6 @@
-﻿namespace WPF_MVVMConsole
+﻿using System.Runtime.CompilerServices;
+
+namespace WPF_MVVMConsole
 {
     class Program
     {
@@ -38,6 +40,8 @@
 
             Console.ReadLine();
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private static void PrintMethod(string Message, int Count, int Timeout)
         {
             for (var i = 0; i < Count; i++)
