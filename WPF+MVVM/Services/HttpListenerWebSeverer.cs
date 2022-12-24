@@ -1,18 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using WPF_MVVM.Services.Interfaces;
+using WPF_MVVM.Web;
 
 namespace WPF_MVVM.Services
 {
     internal class HttpListenerWebSeverer : IWebServerService
     {
-        public bool Enabled { get; set; }
+        private readonly WebServer _Server = new WebServer(8080);
 
-        public void Start() { throw new System.NotImplementedException(); }
+        public bool Enabled { get => _Server.Enabled; set => _Server.Enabled = value; }
 
-        public void Stop() { throw new System.NotImplementedException(); }
+
+        public void Start() => _Server.Start();
+
+        public void Stop() => _Server.Stop();
+
+        public HttpListenerWebSeverer() => _Server.RequestReceived += OnRequestReceived;
+
+        private static void OnRequestReceived(object Sender, RequestReceiverEventArgs E)
+        {
+            using var writer = new StreamWriter(E.Context.Response.OutputStream);
+            writer.WriteLine("CV-19 Application");
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-namespace WPF_MVVM.Services.Interfaces
+﻿namespace WPF_MVVM.Services.Interfaces
 {
     internal interface IWebServerService
     {
